@@ -1,13 +1,13 @@
 #include "register_types.h"
 #include "core/class_db.h"
-#include "factorial.h"
+#include "summator.h"
 
-void register_factorial_types()
+void register_summator_types()
 {
-    ClassDB::register_class<Factorial>();
+    ClassDB::register_class<Summator>();
 }
 
-void unregister_factorial_types()
+void unregister_summator_types()
 {
     // ain't nothing to do here.
     // just a small change for scons...

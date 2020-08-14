@@ -8,6 +8,7 @@ This is very much Work in Progress, see [Known Issues and Bugs section](#known-i
 * The directory structure reflects my personal preferences. It should be easy to change to fit your personal needs with minimal modifications to the scons conscript file `SCsub`.
 * I used the example code from the section on creating a [custom C++ module from the Godot documentation][6]. This should help new users to understand how this template works.
 * I assume you're familiar with working on the command line, git, and building Godot.
+* This is a very early stage, I haven't worked with Scons before, so expect a lot of weird/unsual things in that regard.
 
 ## Installing and Usage
 
@@ -21,9 +22,7 @@ Assuming you're in the directory with your Godot git repository, open your termi
 
 ```bash
 [you@yourcomputer code]$ cd godot/modules
-[you@yourcomputer modules]$ git submodule add https://github.com/georgjz/godot-module-template-with-unit-testing.git
-[you@yourcomputer modules]$ mv godot-module-template-with-unit-testing mymodulename
-
+[you@yourcomputer modules]$ git submodule add https://github.com/georgjz/godot-module-template-with-unit-testing.git mymodulename
 ```
 
 Keep in mind, that this submodule will have this Github repository as remote origin. You may want to remove it:
@@ -60,7 +59,7 @@ Now edit and test your code as you see fit. Once you want to commit your new cod
 [you@yourcomputer godot] git commit -m "update mymodulename submodule"
 ```
 
-### Running Unit Tests 
+### Running Unit Tests
 
 This template uses [doctest][2] for creating unit tests (the Godot engine itself uses the same framework). Please read this [doctest tutorial][5] if you haven't used it before.
 
@@ -74,9 +73,43 @@ This will create an executable called `runTests.<depends.on.your.settings>`. Run
 
 ```bash
 [you@yourcomputer mymodulename] ./runTests.x.y.z
+[doctest] doctest version is "2.4.0"
+[doctest] run with "--help" for options
+===============================================================================
+modules/summator/tests/summator_tests.cpp:7:
+TEST CASE:  testing the Summator class
 
+modules/summator/tests/summator_tests.cpp:7: FATAL ERROR: test case CRASHED: SIGSEGV - Segmentation violation signal
+
+===============================================================================
+[doctest] test cases:      1 |      0 passed |      1 failed |      0 skipped
+[doctest] assertions:      0 |      0 passed |      0 failed |
+[doctest] Status: FAILURE!
+Segmentation fault (core dumped)
 ```
+
+This crush was expected; see [Godot Related Issues](#godot-related-issues) below.
 
 ## Planned Features
 
+Here's a few things I'd like to add in the future:
+
+* Allow the module to be built external; i.e., remove the need for the code to be placed in `godot/modules`, instead, use `scons custom_modules="path/to/your/module".
+* Improve unit testing by allowing tests to be written in several files.
+* A more detailed tutorial how to write unit tests.
+* Improved build time and size (see issues below).
+
 ## Known Issues and Bugs
+
+This is a list of known issues and bugs:
+
+* Currently, the build time and size is not optimized. The resulting `runTests.x.y.z` will be almost the size of Godot itself (~350MB on my Linux system, so YMMV). I want to improve the `SCsub` code to make sure the test program only includes the object files the tests actually need.
+* The test program is rebuilt every time some module code changes. It would be nice to let the user control whether to rebuild the test programs or not.
+
+## Godot Related Issues
+
+* The test program in this repository crashed with a Segmentation fault (see example above); after some quick and dirty gdb inspection, I think the issue here is that the `Summator` class inherits from Godot's `Reference` class. Godot takes care of pointer clean up for that class, so using `delete cut;` like it is done in `tests/summator_tests.cpp`, is wrong. Comment out that line, and the tests will run successfully.
+
+## Contributing
+
+As I said, this is the first time working with Scons, so if you have more experience with it, please consider submitting a pull request to improve this template!

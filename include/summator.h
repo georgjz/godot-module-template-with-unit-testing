@@ -7,6 +7,9 @@ class Summator : public Reference
 {
     GDCLASS( Summator, Reference );
 
+private:
+    int count;
+
 protected:
     static void _bind_methods();
 

@@ -113,3 +113,10 @@ This is a list of known issues and bugs:
 ## Contributing
 
 As I said, this is the first time working with Scons, so if you have more experience with it, please consider submitting a pull request to improve this template!
+
+[1]: https://godotengine.org
+[2]: https://github.com/onqtam/doctest
+[3]: https://github.com/godotengine
+[4]: https://docs.godotengine.org/en/stable/development/compiling/index.html
+[5]: https://github.com/onqtam/doctest/blob/master/doc/markdown/tutorial.md
+[6]: https://docs.godotengine.org/en/stable/development/cpp/custom_modules_in_cpp.html

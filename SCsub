@@ -3,9 +3,9 @@ Import( 'env' )
 print( 'Factorial module' )
 
 # add include files 
-env.Prepend( CPPPATH = [ './include' ])
+env.Prepend( CPPPATH = [ './include' ] )
 # add all cpp files
 env.add_source_files( env.modules_sources, 'src/*.cpp' )
 env.add_source_files( env.modules_sources, '*.cpp' )
 
-tests = env.Program( 'runTests', [ 'tests/factorial_tests.cpp' ] )
+tests = env.Program( 'runTests', [ Glob( 'tests/*.cpp' ) ] )

@@ -1,4 +1,4 @@
 // register classes with Godot 
 
-void register_factorial_types();
-void unregister_factorial_types();
+void register_summator_types();
+void unregister_summator_types();

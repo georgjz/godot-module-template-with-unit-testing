@@ -1,5 +1,4 @@
 #include "summator.h"
-#include <iostream> 
 
 void Summator::add( int p_value ) 
 {

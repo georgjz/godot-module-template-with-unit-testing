@@ -7,7 +7,7 @@
 TEST_CASE("testing the Summator class") 
 {
     // class under test 
-    Factorial* cut = new Summator();
+    Summator* cut = new Summator();
 
 
     // clean up 
